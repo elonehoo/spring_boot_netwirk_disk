@@ -1,0 +1,33 @@
+server:
+  #  设置端口号
+  port: 8085
+  servlet:
+    #    设置项目名称
+    context-path: /NetWorkDisk
+
+spring:
+  datasource:
+    #    设置数据库的连接版本
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    设置数据库的连接池地址
+    url: jdbc:mysql://47.104.249.85:3306/typefile?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    #    设置数据库的账号
+    username: root
+    #    设置数据库的密码
+    password: 123456
+    #    设置druid的连接监控
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    #    设置NoSQL的连接地址
+    host: localhost
+    #    设置NoSQl的连接端口号
+    port: 6379
+  session:
+    #    设置连接数据库的软件
+    store-type: redis
+
+mybatis-plus:
+  #  设置MyBatis—Plus的实体类位置
+  type-aliases-package: com.inet.codebase.entity
+  #  设置MyBatis-Plus的xml文件的位置
+  mapper-locations: com/inet/codebase/mapper/xml/*.xml
