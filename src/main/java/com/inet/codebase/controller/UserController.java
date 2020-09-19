@@ -2,6 +2,7 @@ package com.inet.codebase.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.inet.codebase.entity.Register;
 import com.inet.codebase.entity.User;
 import com.inet.codebase.service.RegisterService;
@@ -149,5 +150,95 @@ public class UserController {
         userService.save(user);
         registerService.save(register);
         return new Result("恭喜" + name + "注册成功!","注册操作",100);
+    }
+
+
+    /**
+     * 通过token进行获取用户的所有信息
+     * @author HCY
+     * @date 2020-9-19
+     * @param token 令牌进行登录的必要操作
+     * @return Result 风格的JSON集合数据
+     */
+    @GetMapping("/index")
+    public Result GetIndex(@RequestParam String token){
+        //判断 token 是否为空
+        if (token.equals("")){
+            return new Result("没有登录,请先去进行登录操作","token请求",104);
+        }
+        //通过token从NoSQL中获取登录的用户的信息
+        User user = (User) redisTemplate.opsForValue().get(token);
+        //判断是否查询到用户操作
+        if (user == null){
+            return new Result("登录已经超时了,请重新登录","token请求",104);
+        }
+        //设置存储的时间为30分钟
+        redisTemplate.expire(token,30L, TimeUnit.MINUTES);
+        //设置返回给前端的信息
+        Map<String,Object> map = new HashMap<>();
+        map.put("msg","登录成功");
+        map.put("user",user);
+        return new Result(map,"token请求",100);
+    }
+
+    /**
+     * 进行修改密码的操作
+     * @author HCY
+     * @Date 2020-9-19
+     * @param map 前端传来的数据集合
+     * @return Result 风格的JSON集合数据
+     */
+    @PutMapping("/update")
+    public Result PutUpdate(@RequestBody HashMap<String, Object> map){
+        //获取token
+        String token = (String) map.get("Token");
+        //判断token是否为空
+        if (token.equals("")){
+            return new Result("修改密码失败,并没有登录或者登录失效,请重新登录","修改密码请求",104);
+        }
+        //通过token获取登录的用户密码
+        Register register = registerService.getById(token);
+        //判断用户是否登录失效
+        if (register == null){
+            return new Result("修改密码失败,并没有登录或者登录失效,请重新登录","修改密码请求",104);
+        }
+        //设置存储的时间为30分钟
+        redisTemplate.expire(token,30L, TimeUnit.MINUTES);
+        //获取用户输入的旧密码
+        String oldPassword = (String) map.get("OldPassword");
+        //进行密码对比
+        if (! oldPassword.equals(register.getRegisterPassword()) ){
+            return new Result("修改密码失败,旧密码错误","修改密码请求",104);
+        }
+        //获取新密码
+        String newPassword = (String) map.get("NewPassword");
+        //设置新密码
+        register.setRegisterPassword(newPassword);
+        //进行修改操作
+        boolean judgment = registerService.updateById(register);
+        //判断是否修改成功
+        if (judgment){
+            return new Result("修改密码成功","修改密码请求",100);
+        }else {
+            return new Result("修改密码失败","修改密码请求",104);
+        }
+    }
+
+    /**
+     * 通过token进行退出操作
+     * @author HCY
+     * @Date 2020-9-19
+     * @param token 令牌进行退出的必要操作
+     * @return Result 风格的JSON集合数据
+     */
+    @GetMapping("/quit")
+    public Result GetQuit(@RequestParam String token){
+        //判断token是否为空
+        if (token.equals("")){
+            return new Result("退出失败,未登录或者登录失效","退出请求",104);
+        }
+        //进行登录操作
+        redisTemplate.delete(token);
+        return new Result("退出成功","退出操作",100);
     }
 }
