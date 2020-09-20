@@ -3,6 +3,9 @@ package com.inet.codebase.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -51,12 +54,14 @@ public class File implements Serializable {
     /**
      * 文件的创建时间
      */
-    private LocalDateTime fileCreation;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date fileCreation;
 
     /**
      * 文件的修改时间
      */
-    private LocalDateTime fileModification;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date fileModification;
 
     /**
      * 文件的所属人
