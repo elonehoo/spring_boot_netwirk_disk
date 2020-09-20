@@ -30,7 +30,7 @@ public class Api implements Serializable {
     /**
      * api接口的序号
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @TableId("api_id")
     private String apiId;
@@ -38,21 +38,21 @@ public class Api implements Serializable {
     /**
      * api接口的说明
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String apiValue;
 
     /**
      * api接口的代码
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String apiCode;
 
     /**
      * api接口的创建时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date apiCreation;
@@ -60,7 +60,7 @@ public class Api implements Serializable {
     /**
      * api接口的修改时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date apiModification;

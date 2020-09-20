@@ -30,7 +30,7 @@ public class Web implements Serializable {
     /**
      * 网站说明序号
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @TableId("web_id")
     private String webId;
@@ -38,14 +38,14 @@ public class Web implements Serializable {
     /**
      * 网站说明
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String webValue;
 
     /**
      * 网站说明创建时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date webCreation;
@@ -53,7 +53,7 @@ public class Web implements Serializable {
     /**
      * 网站说明修改时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date webModification;

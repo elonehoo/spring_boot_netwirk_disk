@@ -34,7 +34,7 @@ public class User implements Serializable {
     /**
      * 用户序号
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @TableId("user_id")
     private String userId;
@@ -42,21 +42,21 @@ public class User implements Serializable {
     /**
      * 用户昵称
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String userName;
 
     /**
      * 用户头像
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String userIcon;
 
     /**
      * 用户Token
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @TableField("user_KID")
     private String userKid;
@@ -64,7 +64,7 @@ public class User implements Serializable {
     /**
      * 用户创建时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date userCreation;
@@ -72,7 +72,7 @@ public class User implements Serializable {
     /**
      * 用户修改时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date userModification;

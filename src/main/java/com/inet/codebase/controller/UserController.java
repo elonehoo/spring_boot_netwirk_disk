@@ -45,7 +45,7 @@ public class UserController {
     /**
      * 登录操作
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      * @param map 前端传来的map数据集合
      * @return Result风格的JSON集合对象
      */
@@ -93,7 +93,7 @@ public class UserController {
     /**
      * 进行注册操作
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      * @param map 获取前端的数据的map集合
      * @return Result 风格的JSON集合数据
      */
@@ -156,7 +156,7 @@ public class UserController {
     /**
      * 通过token进行获取用户的所有信息
      * @author HCY
-     * @date 2020-9-19
+     * @since 2020-9-19
      * @param token 令牌进行登录的必要操作
      * @return Result 风格的JSON集合数据
      */
@@ -164,13 +164,13 @@ public class UserController {
     public Result GetIndex(@RequestParam String token){
         //判断 token 是否为空
         if (token.equals("")){
-            return new Result("没有登录,请先去进行登录操作","token请求",104);
+            return new Result("没有登录,请先去进行登录操作","token请求",103);
         }
         //通过token从NoSQL中获取登录的用户的信息
         User user = (User) redisTemplate.opsForValue().get(token);
         //判断是否查询到用户操作
         if (user == null){
-            return new Result("登录已经超时了,请重新登录","token请求",104);
+            return new Result("登录已经超时了,请重新登录","token请求",103);
         }
         //设置存储的时间为30分钟
         redisTemplate.expire(token,30L, TimeUnit.MINUTES);
@@ -184,7 +184,7 @@ public class UserController {
     /**
      * 进行修改密码的操作
      * @author HCY
-     * @Date 2020-9-19
+     * @since 2020-9-19
      * @param map 前端传来的数据集合
      * @return Result 风格的JSON集合数据
      */
@@ -194,24 +194,24 @@ public class UserController {
         String token = (String) map.get("Token");
         //判断token是否为空
         if (token.equals("")){
-            return new Result("修改密码失败,并没有登录或者登录失效,请重新登录","修改密码请求",104);
+            return new Result("修改密码失败,并没有登录或者登录失效,请重新登录","修改密码请求",103);
         }
         //通过token获取登录的用户密码
         Register register = registerService.getById(token);
         //判断用户是否登录失效
         if (register == null){
-            return new Result("修改密码失败,并没有登录或者登录失效,请重新登录","修改密码请求",104);
+            return new Result("修改密码失败,并没有登录或者登录失效,请重新登录","修改密码请求",103);
         }
         //设置存储的时间为30分钟
         redisTemplate.expire(token,30L, TimeUnit.MINUTES);
         //获取用户输入的旧密码
-        String oldPassword = (String) map.get("OldPassword");
+        String oldPassword =DigestUtils.md5DigestAsHex(((String) map.get("OldPassword")).getBytes()) ;
         //进行密码对比
         if (! oldPassword.equals(register.getRegisterPassword()) ){
             return new Result("修改密码失败,旧密码错误","修改密码请求",104);
         }
         //获取新密码
-        String newPassword = (String) map.get("NewPassword");
+        String newPassword = DigestUtils.md5DigestAsHex( ( (String) map.get("NewPassword") ).getBytes());
         //设置新密码
         register.setRegisterPassword(newPassword);
         //进行修改操作
@@ -227,7 +227,7 @@ public class UserController {
     /**
      * 通过token进行退出操作
      * @author HCY
-     * @Date 2020-9-19
+     * @since 2020-9-19
      * @param token 令牌进行退出的必要操作
      * @return Result 风格的JSON集合数据
      */
@@ -240,5 +240,56 @@ public class UserController {
         //进行登录操作
         redisTemplate.delete(token);
         return new Result("退出成功","退出操作",100);
+    }
+
+    /**
+     * 修改个人信息
+     * @author HCY
+     * @since 2020-9-20
+     * @param map 前端传来的数据集合
+     * @return Result 风格的JSON集合数据
+     */
+    @PutMapping("/personal")
+    public Result PutPersonal(@RequestBody HashMap<String, Object> map){
+        //获取token
+        String token = (String) map.get("Token");
+        //判断token是否存在
+        if (token.equals("")){
+            return new Result("未登录,请进行登录哦","修改请求",103);
+        }
+        //通过token获取用户的具体信息
+        User user = (User) redisTemplate.opsForValue().get(token);
+        //判断token是否过期
+        if (user == null){
+            return new Result("登录已经超时,请重新登录","修改请求",103);
+        }
+        //获取用户修改的名称
+        String userName = (String) map.get("Name");
+        //判断昵称是否为空
+        if (userName.equals("")){
+            return new Result("昵称为空,请重新输入","修改请求",104);
+        }
+        //修改昵称
+        user.setUserName(userName);
+        //获取用户的头像
+        String userIcon = (String) map.get("Icon");
+        //判断用户的头像是否为空
+        if (userIcon.equals("")){
+            userIcon = "http://47.104.249.85:8080/wwwww/123.png";
+        }
+        //修改头像
+        user.setUserIcon(userIcon);
+        //进行更新操作
+        boolean judgment = userService.updateById(user);
+        //判断是否更新成功
+        if (judgment){
+            //进行NoSQL的更新
+            redisTemplate.opsForValue().set(token,user);
+            //设置存储的时间为30分钟
+            redisTemplate.expire(token,30L, TimeUnit.MINUTES);
+            return new Result("修改成功","修改请求",100);
+        }else {
+            return new Result("修改失败","修改请求",104);
+        }
     }
 }

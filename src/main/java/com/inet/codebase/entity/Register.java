@@ -34,7 +34,7 @@ public class Register implements Serializable {
     /**
      * 用户序号
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @TableId("register_id")
     private String registerId;
@@ -42,21 +42,21 @@ public class Register implements Serializable {
     /**
      * 用户账号
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String registerAccount;
 
     /**
      * 用户密码
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String registerPassword;
 
     /**
      * 用户创建时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date registerCreation;
@@ -64,7 +64,7 @@ public class Register implements Serializable {
     /**
      * 用户修改时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date registerModification;

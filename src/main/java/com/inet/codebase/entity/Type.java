@@ -30,7 +30,7 @@ public class Type implements Serializable {
     /**
      * 类别序号
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @TableId("type_id")
     private String typeId;
@@ -38,14 +38,14 @@ public class Type implements Serializable {
     /**
      * 类别名称
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     private String typeName;
 
     /**
      * 类别创建时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date typeCreation;
@@ -53,7 +53,7 @@ public class Type implements Serializable {
     /**
      * 类别修改时间
      * @author HCY
-     * @date 2020-09-18
+     * @since 2020-09-18
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date typeModification;
