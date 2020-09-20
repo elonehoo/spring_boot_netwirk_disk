@@ -3,8 +3,12 @@ package com.inet.codebase.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,6 +20,8 @@ import lombok.experimental.Accessors;
  * @since 2020-09-20
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("tbl_type")
@@ -36,12 +42,12 @@ public class Type implements Serializable {
     /**
      * 类别创建时间
      */
-    private LocalDateTime typeCreation;
+    private Date typeCreation;
 
     /**
      * 类别修改时间
      */
-    private LocalDateTime typeModification;
+    private Date typeModification;
 
     /**
      * 类别的所属人员
