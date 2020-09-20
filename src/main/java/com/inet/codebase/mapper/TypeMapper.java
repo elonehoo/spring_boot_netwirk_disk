@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author HCY
- * @since 2020-09-18
+ * @since 2020-09-20
  */
 public interface TypeMapper extends BaseMapper<Type> {
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author HCY
- * @since 2020-09-18
+ * @since 2020-09-20
  */
 @RestController
 @RequestMapping("/type")
