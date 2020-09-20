@@ -214,6 +214,9 @@ public class UserController {
         String newPassword = DigestUtils.md5DigestAsHex( ( (String) map.get("NewPassword") ).getBytes());
         //设置新密码
         register.setRegisterPassword(newPassword);
+        //设置修改日期
+        Date date = new Date();
+        register.setRegisterModification(date);
         //进行修改操作
         boolean judgment = registerService.updateById(register);
         //判断是否修改成功
@@ -279,6 +282,9 @@ public class UserController {
         }
         //修改头像
         user.setUserIcon(userIcon);
+        //修改更新事件
+        Date date = new Date();
+        user.setUserModification(date);
         //进行更新操作
         boolean judgment = userService.updateById(user);
         //判断是否更新成功
