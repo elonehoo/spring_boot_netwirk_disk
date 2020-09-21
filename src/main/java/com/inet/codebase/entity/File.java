@@ -1,5 +1,6 @@
 package com.inet.codebase.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author HCY
- * @since 2020-09-20
+ * @since 2020-09-21
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,12 +30,23 @@ public class File implements Serializable {
     /**
      * 文件序号
      */
+    @TableId("file_id")
     private String fileId;
+
+    /**
+     * 文件的uuid+名字
+     */
+    private String fileUuname;
 
     /**
      * 文件原本的名称
      */
     private String fileName;
+
+    /**
+     * 文件的后缀
+     */
+    private String filePostfix;
 
     /**
      * 文件的类别

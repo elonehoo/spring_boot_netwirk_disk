@@ -25,9 +25,14 @@ spring:
   session:
     #    设置连接数据库的软件
     store-type: redis
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 600MB
 
 mybatis-plus:
   #  设置MyBatis—Plus的实体类位置
   type-aliases-package: com.inet.codebase.entity
   #  设置MyBatis-Plus的xml文件的位置
   mapper-locations: com/inet/codebase/mapper/xml/*.xml
+

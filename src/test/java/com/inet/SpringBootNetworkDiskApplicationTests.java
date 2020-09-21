@@ -2,8 +2,10 @@ package com.inet;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.inet.codebase.entity.Register;
+import com.inet.codebase.entity.Type;
 import com.inet.codebase.entity.User;
 import com.inet.codebase.service.RegisterService;
+import com.inet.codebase.service.TypeService;
 import com.inet.codebase.service.UserService;
 import com.inet.codebase.utlis.RegesUtils;
 import com.inet.codebase.utlis.Result;
@@ -13,10 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
@@ -27,6 +26,9 @@ class SpringBootNetworkDiskApplicationTests {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private TypeService typeService;
 
     @Resource
     private RedisTemplate redisTemplate;
@@ -67,6 +69,15 @@ class SpringBootNetworkDiskApplicationTests {
         String password = "123";
         String digest = DigestUtils.md5DigestAsHex(password.getBytes());
         System.out.println(digest);
+    }
+
+
+
+    @Test
+    void contextLoads3() {
+        QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+        List<Type> list = typeService.list(queryWrapper);
+        System.out.println(list);
     }
 
 }

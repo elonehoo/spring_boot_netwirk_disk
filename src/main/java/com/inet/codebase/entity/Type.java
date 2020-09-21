@@ -1,6 +1,7 @@
 package com.inet.codebase.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class Type implements Serializable {
     /**
      * 类别序号
      */
+    @TableId("type_id")
     private String typeId;
 
     /**
