@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("tbl_file")
-public class File implements Serializable {
+public class Document implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,7 +56,7 @@ public class File implements Serializable {
     /**
      * 文件的大小
      */
-    private Double fileSize;
+    private Long fileSize;
 
     /**
      * 文件的地址
@@ -79,6 +79,5 @@ public class File implements Serializable {
      * 文件的所属人
      */
     private String fileAffiliation;
-
 
 }

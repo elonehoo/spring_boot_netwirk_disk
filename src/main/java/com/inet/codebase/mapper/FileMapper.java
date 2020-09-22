@@ -1,6 +1,6 @@
 package com.inet.codebase.mapper;
 
-import com.inet.codebase.entity.File;
+import com.inet.codebase.entity.Document;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author HCY
  * @since 2020-09-21
  */
-public interface FileMapper extends BaseMapper<File> {
+public interface FileMapper extends BaseMapper<Document> {
 
 }

@@ -4,14 +4,13 @@ package com.inet.codebase.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.inet.codebase.entity.File;
+import com.inet.codebase.entity.Document;
 import com.inet.codebase.entity.Type;
 import com.inet.codebase.entity.User;
 import com.inet.codebase.service.FileService;
 import com.inet.codebase.service.TypeService;
 import com.inet.codebase.utlis.Result;
 import com.inet.codebase.utlis.UUIDUtils;
-import com.sun.corba.se.spi.ior.ObjectKey;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -159,7 +158,7 @@ public class TypeController {
             Map<String,Object> map = new HashMap<>();
             map.put("file_type", typeList.get(i).getTypeId());
             //进行查询条件的设定
-            QueryWrapper<File> parameter = new QueryWrapper<>();
+            QueryWrapper<Document> parameter = new QueryWrapper<>();
             //进行条件的设置
             parameter.allEq(map);
             //进行总数的查询
@@ -221,10 +220,14 @@ public class TypeController {
         }
         //进行名字搜索设置
         QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+        //设置归属人
+        Map<String,Object> condition = new HashMap<>();
+        condition.put("type_affiliation",token);
         //判断搜索是否为空
         if ( ! typeName.equals("")){
             queryWrapper.like("type_name",typeName);
         }
+        queryWrapper.allEq(condition);
         //进行分页的设置
         Page<Type> typePage = new Page<>(pagination,pageSize);
         //进行分页

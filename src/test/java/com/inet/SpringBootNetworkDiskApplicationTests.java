@@ -66,9 +66,9 @@ class SpringBootNetworkDiskApplicationTests {
 
     @Test
     void contextLoads2() {
-        String password = "123";
-        String digest = DigestUtils.md5DigestAsHex(password.getBytes());
-        System.out.println(digest);
+        String fileName = "1F9E696A2FB04235BBC0B0398C9E58D4.jpg";
+        String substring = fileName.substring(fileName.lastIndexOf("."));;
+        System.out.println(substring);
     }
 
 
