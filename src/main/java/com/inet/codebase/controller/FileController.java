@@ -84,7 +84,7 @@ public class FileController {
             String uuid = UUIDUtils.getId();
             rootFile.setFileUuname(uuid);
             //设置文件的大小
-            Long fileSize = file.getSize() / 1024 / 1024;
+            Long fileSize = file.getSize() / 1024;
             rootFile.setFileSize(fileSize);
             //更换名字
             fileName = uuid + postfix;
@@ -108,7 +108,7 @@ public class FileController {
         if (judgment){
             return new Result("上传成功","上传文件请求",100);
         }else {
-            return new Result("上传失败","上传文件请求",100);
+            return new Result("上传失败","上传文件请求",104);
         }
     }
 
