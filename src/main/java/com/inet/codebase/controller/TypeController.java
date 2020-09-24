@@ -107,6 +107,8 @@ public class TypeController {
         //判断序号是否为空
         if (typeId.equals("")){
             return new Result("修改失败,未知的修改序号","修改类别请求",101);
+        }else if (typeId.equals(token)){
+            return new Result("修改失败,此为默认类别","修改类别请求",101);
         }
         //创建修改事件
         Date date = new Date();
@@ -188,6 +190,8 @@ public class TypeController {
         //判断需要删除的类别序号是否为空
         if (typeId.equals("")){
             return new Result("删除失败,删除序号为空","删除类别请求",101);
+        }else if (typeId.equals(token)){
+            return new Result("删除失败,此为默认类别","删除类别请求",101);
         }
         //进行删除操作
         boolean judgment = typeService.removeById(typeId);

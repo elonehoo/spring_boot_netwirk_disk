@@ -4,8 +4,10 @@ package com.inet.codebase.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.inet.codebase.entity.Register;
+import com.inet.codebase.entity.Type;
 import com.inet.codebase.entity.User;
 import com.inet.codebase.service.RegisterService;
+import com.inet.codebase.service.TypeService;
 import com.inet.codebase.service.UserService;
 import com.inet.codebase.utlis.RegesUtils;
 import com.inet.codebase.utlis.Result;
@@ -38,6 +40,9 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private TypeService typeService;
 
     @Resource
     private RedisTemplate redisTemplate;
@@ -146,7 +151,10 @@ public class UserController {
         User user = new User(userId,name,icon,kID,date,date);
         //注册Register实体类
         Register register = new Register(userId,email,password,date,date);
+        //创建一个默认的类别,并且无法删除
+        Type type = new Type(userId,"默认",date,date,userId,0);
         //进行存储
+        typeService.save(type);
         userService.save(user);
         registerService.save(register);
         return new Result("恭喜" + name + "注册成功!","注册操作",100);
