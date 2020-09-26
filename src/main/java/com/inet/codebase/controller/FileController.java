@@ -73,35 +73,7 @@ public class FileController {
         return uploadIng;
     }
 
-    /**
-     * 使用Kid上传文件
-     * @author HCY
-     * @since 2020-9-23
-     * @param files 文件列表
-     * @param kid 通过API上传的序号
-     * @return Result风格的JSON集合对象
-     */
-    @PostMapping("/KID")
-    public Result PostKID(@RequestParam(value = "file") MultipartFile[] files
-                         ,@RequestParam(value = "KID") String kid){
-        //判断Kid是否为空
-        if (kid.equals("")){
-            return new Result("上传失败,KID为空","上传文件请求",101);
-        }
-        //查询上传的条件
-        Map<String , Object> condition = new HashMap<>();
-        //为 user_KID = kid
-        condition.put("user_KID" , kid);
-        //进行条件的插入
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.allEq(condition);
-        //进行查询
-        User user = userService.getOne(queryWrapper);
-        String fileTypeId = user.getUserId();
-        String fileAffiliation = user.getUserId();
-        Result result = uploadIng(files, fileAffiliation, fileTypeId);
-        return result;
-    }
+
 
     /**
      * 下载操作
